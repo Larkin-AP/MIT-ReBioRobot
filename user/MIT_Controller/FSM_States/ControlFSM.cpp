@@ -56,7 +56,9 @@ ControlFSM<T>::ControlFSM(Quadruped<T>* _quadruped,
   safetyChecker = new SafetyChecker<T>(&data);
 
   // Initialize the FSM with the Passive FSM State
+  
   initialize();
+  
 }
 
 /**
@@ -128,15 +130,16 @@ void ControlFSM<T>::runFSM() {
 最后切换到力控站立后，做了一个后空翻的动作。
 */
 
-// if (iter < 5000)
-while (true)
+if (iter < 1000)
+// while (true)
 {
    data.controlParameters->control_mode = K_PASSIVE;
-   printf("Mark K_PASSIVE=0");
+   printf("Mark K_PASSIVE=0\n");
 }
-// else{
-//   data.controlParameters->control_mode = K_JOINT_PD;
-// }
+else{
+  data.controlParameters->control_mode = K_JOINT_PD;
+  printf("Mark K_JOINT_PD=1\n");
+}
 
 
 // if (iter<1000)
@@ -178,7 +181,7 @@ while (true)
         operatingMode = FSM_OperatingMode::TRANSITIONING;
 
         // Get the next FSM State by name
-        nextState = getNextState(nextStateName);
+        nextState = getNextState(nextStateName); // get next state
 
         // Print transition initialized info
         //printInfo(1);

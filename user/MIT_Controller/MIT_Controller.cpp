@@ -19,6 +19,7 @@ void MIT_Controller::initializeController() {
                                       _legController, _gaitScheduler,
                                       _desiredStateCommand, _controlParameters, 
                                       _visualizationData, &userParameters);
+    printf("dddd!!!\n");
 }
 
 /**
@@ -32,7 +33,7 @@ void MIT_Controller::runController() {
   _desiredStateCommand->convertToStateCommands();
 
   // Run the Control FSM code
-  // _controlFSM->runFSM();
+  _controlFSM->runFSM();
 }
 
 

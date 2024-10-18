@@ -42,6 +42,7 @@ void FSM_State<T>::jointPDControl(
 
   _data->_legController->commands[leg].qDes = qDes;
   _data->_legController->commands[leg].qdDes = qdDes;
+  // std::cout << "qdes \n" << qDes << std::endl;
 }
 
 /**

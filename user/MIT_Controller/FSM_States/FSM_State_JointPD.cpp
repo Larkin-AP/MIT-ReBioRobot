@@ -46,15 +46,18 @@ void FSM_State_JointPD<T>::run() {
   // This is just a test, should be running whatever other code you want
   Vec3<T> qDes;
   // qDes << 0, -1.052, 2.63; // original
-  qDes << 0, 0, 1;
+  qDes << 1, 1, 1;
   Vec3<T> qdDes;
-  qdDes << 0, 0, 0;
+  // qdDes << 0, 0, 0; // original
+  qdDes << 0.2, 0.2, 0.2;
 
   static double progress(0.);
   progress += this->_data->controlParameters->controller_dt;
   double movement_duration(3.0);
   double ratio = progress/movement_duration;
   if(ratio > 1.) ratio = 1.;
+  this->jointPDControl(0, ratio*qDes + (1. - ratio)*_ini_jpos.head(3), qdDes);
+  std:: cout << _ini_jpos.head(3) << std::endl;
 
   // 循环控制四条腿的关节位置，每次调用 jointPDControl() 控制一条腿。 输入腿的编号，期望位置和期望速度，会根据初始位置阻抗控制移动过去
   // head， segment是eigen的库，用于提取前3个元素，segment为截取索引为3开始的三个元素
